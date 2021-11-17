@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Libro_mas_Leido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="267104ab-dd00-4d55-abbd-b351f768d0d6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="38"/>
+	<queryString>
+		<![CDATA[select libro.id_libro as Numero, nombre_libro as Libro, count (eje.id_ejemplar) as NumPrestado
+from libro
+inner join ejemplar eje on eje.id_libro=libro.id_libro
+inner join prestamo pres on pres.id_ejemplar=eje.id_ejemplar
+group by libro.id_libro
+order by libro.id_libro asc]]>
+	</queryString>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="libro" class="java.lang.String"/>
+	<field name="numprestado" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="131" y="0" width="324" height="48" forecolor="#330000" uuid="08c84a8e-1689-478e-8c70-176a8acf6ba1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="30"/>
+				</textElement>
+				<text><![CDATA[BIBLIOTECA META ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="61" height="48" uuid="dae4f939-287f-4226-95d1-c900145618ee"/>
+				<imageExpression><![CDATA["C:\\Users\\Usuario\\Desktop\\pngegg.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="209" y="0" width="100" height="20" uuid="2384d3d5-9d45-42b6-9395-7c1871d58333"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Nombre del Libro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="b5ff9339-9f61-4bae-87bb-a624c633eafd"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Veces Prestado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="97d2098d-0e78-4341-9e72-1dc4fb456387"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="337" height="20" uuid="baefa0a0-c4b4-488c-b49a-867bccc550dc"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="43" height="20" uuid="d908f19f-cd11-4e94-825f-08bfdbea55c0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numprestado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="29" height="20" uuid="e5673be4-bfab-4306-b19b-51fabce5748c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="714" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="0" y="43" width="555" height="285" uuid="30e178a8-c228-4df6-a1bb-bbfe8b0ef8ce"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{numero}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{numero}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{numprestado}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
